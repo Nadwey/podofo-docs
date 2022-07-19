@@ -1,2 +1,0 @@
-# pdfmm-docs
- pdfmm documentation
