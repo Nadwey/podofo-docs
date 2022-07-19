@@ -19,6 +19,7 @@ jobs:
 
             - name: Generate
               run: |
+                  chmod +x generate.sh
                   ./generate.sh
 
             - name: Deploy
