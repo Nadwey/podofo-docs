@@ -1,0 +1,28 @@
+name: Generate Documentation
+on:
+    schedule:
+        - cron: 0 0 * * 0
+    push:
+permissions:
+    contents: write
+jobs:
+    build-and-deploy:
+        concurrency: ci-${{ github.ref }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Install doxygen
+              run: |
+                  sudo apt install doxygen
+
+            - name: Generate
+              run: |
+                  ./generate.sh
+
+            - name: Deploy
+              uses: JamesIves/github-pages-deploy-action@v4
+              with:
+                  branch: gh-pages # The branch the action should deploy to.
+                  folder: pdfmm/doc/html # The folder the action should deploy.
