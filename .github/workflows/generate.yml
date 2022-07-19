@@ -15,7 +15,8 @@ jobs:
 
             - name: Install doxygen
               run: |
-                  sudo apt install doxygen
+                  sudo apt-get update -y
+                  sudo apt-get install -y doxygen
 
             - name: Generate
               run: |
