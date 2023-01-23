@@ -15,14 +15,14 @@ jobs:
 
             - name: Clone pdfmm
               run: |
-                  git clone https://github.com/pdfmm/pdfmm.git
+                  git clone https://github.com/podofo/podofo.git
 
             - uses: mattnotmitt/doxygen-action@v1
               with:
-                  working-directory: pdfmm/
+                  working-directory: podofo/
 
             - name: Deploy
               uses: JamesIves/github-pages-deploy-action@v4
               with:
                   branch: gh-pages # The branch the action should deploy to.
-                  folder: pdfmm/doc/html # The folder the action should deploy.
+                  folder: podofo/doc/html # The folder the action should deploy.
