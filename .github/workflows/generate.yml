@@ -17,7 +17,7 @@ jobs:
               run: |
                   git clone https://github.com/podofo/podofo.git
 
-            - uses: mattnotmitt/doxygen-action@v1
+            - uses: mattnotmitt/doxygen-action@edge
               with:
                   working-directory: podofo/
 
