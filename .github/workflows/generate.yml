@@ -13,7 +13,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
 
-            - name: Clone pdfmm
+            - name: Clone podofo
               run: |
                   git clone https://github.com/podofo/podofo.git
 
