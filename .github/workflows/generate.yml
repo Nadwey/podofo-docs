@@ -1,17 +1,31 @@
-name: Generate Documentation
+name: Build and deploy website
+
 on:
-    schedule:
-        - cron: 0 0 * * 0
     push:
+        branches: [main]
+    workflow_dispatch:
+
 permissions:
-    contents: write
+    contents: read
+    pages: write
+    id-token: write
+
+concurrency:
+    group: "pages"
+    cancel-in-progress: false
+
 jobs:
-    generate-docs:
-        concurrency: ci-${{ github.ref }}
+    build-and-deploy:
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.url }}
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
+            - name: Checkout code
               uses: actions/checkout@v4
+
+            - name: Setup Pages
+              uses: actions/configure-pages@v3
 
             - name: Clone podofo
               run: |
@@ -21,8 +35,11 @@ jobs:
               with:
                   working-directory: podofo/
 
-            - name: Deploy
-              uses: JamesIves/github-pages-deploy-action@v4
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v2
               with:
-                  branch: gh-pages # The branch the action should deploy to.
-                  folder: podofo/doc/html # The folder the action should deploy.
+                  path: podofo/doc/html
+
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v2
